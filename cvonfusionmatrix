@@ -1,0 +1,21 @@
+
+# split the dataset into the training set and test set
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state =42)
+
+
+from sklearn.metrics import classification_report ,f1_score,accuracy_score,confusion_matrix,precision_score, recall_score
+from sklearn.ensemble import RandomForestClassifier
+
+forest=RandomForestClassifier()
+forest.fit(X_train,y_train)
+
+y_pred=forest.predict(X_test)
+
+print("Accuracy on the training subset:(:.3f)",format(forest.score(X_train,y_train)))
+print("Accuracy on the testing subset:(:.3f)",format(forest.score(X_test,y_test)))
+
+print('Precision: %.3f' % precision_score(y_test, y_pred, average='weighted'))
+print('Recall: %.3f' % recall_score(y_test, y_pred, average='weighted'))
+print('Accuracy: %.3f' % accuracy_score(y_test, y_pred))
+print('F1 Score: %.3f' % f1_score(y_test, y_pred, average='weighted'))
